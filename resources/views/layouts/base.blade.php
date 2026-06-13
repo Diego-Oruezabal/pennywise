@@ -24,9 +24,19 @@
                         <img src="{{ asset('img/logo.svg') }}" alt="Logo" class="w-full block">
                     </div>
 
-                    <nav>
+                    @if (Route::has('login'))
+                        <nav class="flex flex-col lg:flex-row gap-4 items-center">
+                            <a
+                            href="{{ route('login') }}"
+                            class="text-white font-bold uppercase p-2"
+                            >Iniciar Sesión</a>
 
-                    </nav>
+                            <a
+                            href="{{ route('register') }}"
+                            class="font-bold uppercase border-2 border-amber-500 px-5 py-2 text-amber-500"
+                            >Crear Cuenta</a>
+                        </nav>
+                    @endif
                 </div>
 
             </header>
