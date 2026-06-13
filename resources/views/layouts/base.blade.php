@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
+        <title>{{ config('app.name', 'PennyWise') }} - @yield('title')</title>
 
         @fonts
 
@@ -19,7 +19,7 @@
         <body>
 
             <header>
-                <p></p>Welcome to the Base Layout</p>
+                <p></p>Header aqui</p>
             </header>
 
             @yield('contents')
