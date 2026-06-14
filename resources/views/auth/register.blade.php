@@ -1,22 +1,27 @@
 @extends('layouts.auth')
 
 @section('title')
-    Registro de usuario
+    Registro de Usuario
 @endsection
 
 @section('auth-contents')
-<form class="mt-14 space-y-5" novalidate>
+<form method="POST" action={{ route('register.store') }} class="mt-14 space-y-5" novalidate>
     <div class="space-y-2">
         <label class="font-bold text-2xl block" for="name">Nombre</label>
 
         <input
             id="name"
             type="text"
-            placeholder="Tu Nombre"
+            placeholder="Introduce tu Nombre"
             class="w-full border border-gray-300 p-3 rounded-lg"
             name="name"
+            value="{{ old('name') }}"
         />
     </div>
+
+    @error('name')
+        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+    @enderror
 
     <div class="space-y-2">
         <label class="font-bold text-2xl block" for="email">Email</label>
@@ -24,33 +29,43 @@
         <input
             id="email"
             type="email"
-            placeholder="Email de Registro"
+            placeholder="Introduce tu Email"
             class="w-full border border-gray-300 p-3 rounded-lg"
             name="email"
+            value="{{ old('email') }}"
         />
     </div>
+
+    @error('email')
+        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+    @enderror
 
     <div class="space-y-2">
         <label class="font-bold text-2xl block">Password</label>
 
         <input
             type="password"
-            placeholder="Password de Registro"
+            placeholder="Introduce tu Password"
             class="w-full border border-gray-300 p-3 rounded-lg"
             name="password"
         />
     </div>
+
+    @error('password')
+        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+    @enderror
 
     <div class="space-y-2">
         <label class="font-bold text-2xl block" for="password_confirmation">Repetir Password</label>
 
         <input
             type="password"
-            placeholder="Password de Registro"
+            placeholder="Repite tu Password"
             class="w-full border border-gray-300 p-3 rounded-lg"
             name="password_confirmation"
         />
     </div>
+
 
     <input
         type="submit"

@@ -12,7 +12,7 @@
         <input
             id="email"
             type="email"
-            placeholder="Email de Registro"
+            placeholder="Introduce tu Email"
             class="w-full border border-gray-300 p-3 rounded-lg"
             name="email"
             tabindex="1"
@@ -26,7 +26,7 @@
         </div>
         <input
             type="password"
-            placeholder="Password de Registro"
+            placeholder="Introduce tu Password"
             class="w-full border border-gray-300 p-3 rounded-lg"
             name="password"
             tabindex="2"
