@@ -28,9 +28,7 @@
         >
     </div>
 
-      @error('email')
-        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
-      @enderror
+    <x-input-error field="email" />
 
     <div class="flex flex-col gap-2">
         <div class="flex  items-center justify-between">
@@ -46,9 +44,7 @@
         />
     </div>
 
-    @error('password')
-        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
-    @enderror
+    <x-input-error field="password" />
 
 
     <input
