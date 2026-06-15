@@ -8,9 +8,7 @@
 
 
 @if(session('error'))
-        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
-            {{ session('error') }}
-        </p>
+        <x-alert type="error" :message="session('error')" />
 @endif
 
 <form method="POST" class="mt-14 space-y-5" action="{{ route('login.store')}}" novalidate>
