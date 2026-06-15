@@ -5,6 +5,14 @@
 @endsection
 
 @section('auth-contents')
+
+
+@if(session('error'))
+        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+            {{ session('error') }}
+        </p>
+@endif
+
 <form method="POST" class="mt-14 space-y-5" action="{{ route('login.store')}}" novalidate>
     <div class="flex flex-col gap-2">
         <label class="font-bold text-2xl" for="email">Email</label>
@@ -16,7 +24,8 @@
             class="w-full border border-gray-300 p-3 rounded-lg"
             name="email"
             tabindex="1"
-        />
+            value={{ old('email') }}
+        >
     </div>
 
       @error('email')
