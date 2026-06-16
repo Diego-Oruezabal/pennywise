@@ -24,6 +24,11 @@
                         <img src="{{ asset('img/logo.svg') }}" alt="Logo" class="w-full block">
                     </div>
 
+
+                    @auth
+                        <p class="text-white font-bold text-xl p-2">Hola: {{ auth()->user()->name }}</p>
+
+                    @else
                     @if (Route::has('login'))
                         <nav class="flex flex-col lg:flex-row gap-4 items-center">
                             <a
@@ -37,6 +42,11 @@
                             >Crear Cuenta</a>
                         </nav>
                     @endif
+
+
+
+                    @endauth
+
                 </div>
 
             </header>
