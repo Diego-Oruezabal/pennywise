@@ -5,6 +5,10 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use App\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Notification;
+
+
 
 uses(RefreshDatabase::class);
 
@@ -100,4 +104,44 @@ it('sends a verification email after registration', function () {
 
     Notification::assertSentTo($user, VerifyEmail::class);
 
+});
+
+//Verificación de correo electrónico, que el usuario pueda verificar su correo electrónico desde un enlace firmado
+it('verifies the user email from a signed verification link', function () {
+
+    $user = User::factory()->unverified()->create();
+
+    $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            [
+                'id' => $user->id,
+                'hash' => sha1($user->email),
+            ]
+        );
+    $response = $this->actingAs($user)->get($verificationUrl);
+
+    $response->assertRedirect(route('dashboard'));
+
+    expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
+});
+
+//Probar que un usuario no verificado no pueda acceder al dashboard
+it('does not allow an unverified user to access the dashboard', function(){
+    $user = User::factory()->unverified()->create();
+
+    $response = $this->actingAs($user)->get(route('dashboard'));
+
+    $response->assertRedirect(route('verification.notice'));
+});
+
+//Probar que un usuario verificado pueda acceder al dashboard
+it('allows a verified user to access the dashboard', function(){
+      $user = User::factory()->create([
+        'email_verified_at' => now()
+      ]);
+
+    $response = $this->actingAs($user)->get(route('dashboard'));
+
+    $response->assertOk();
 });
