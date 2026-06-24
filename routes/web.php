@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\LogoutController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +17,8 @@ Route::post('/auth/register', [RegisterController::class, 'store' ])->name('regi
 
 Route::get('/auth/login', [LoginController::class, 'index' ])->name('login');
 Route::post('/auth/login', [LoginController::class, 'store' ])->name('login.store');
+
+Route::post('/auth/logout', [LogoutController::class, 'store'])->name('logout.store');
 
 Route::get('/email/verify/{id}/{hash}', function(EmailVerificationRequest $request) {
     $request->fulfill();
@@ -31,6 +35,11 @@ Route::post('/email/verification-notificatiob', function(Request $request) {
 
 })->middleware(['auth', 'throttle:2,1'])->name('verification.send');
 
-Route::get('/dashboard', function() {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::prefix('dashboard')->group(function() {
+        Route::get('/', [BudgetController::class, 'index'])->name('dashboard');
+        Route::get('/budgets/create', [BudgetController::class, 'create'])->name('budgets.create');
+        Route::post('/budgets', [BudgetController::class, 'store'])->name('budgets.store');
+        });
+
